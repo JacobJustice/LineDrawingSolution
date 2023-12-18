@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items:normal;
+            margin: 0;
+        }
+
+        .container {
+            text-align: left;
+        }
+
+        .radio-input, .radio-label, #canvas {
+            margin-bottom: 0px;
+        }
+
+        #canvas {
+            border: 2px solid black;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Assignment 4: Line Drawing</h1>
+        <fieldset id="line-method">
+            <input class="radio-input" type="radio" id="solid" name="line-method" checked>
+            <label class="radio-label" for="solid"> Solid</label><br>
+            <input class="radio-input" type="radio" id="dashed" name="line-method">
+            <label class="radio-label" for="dashed"> Dashed</label><br>
+        </fieldset>
+
+        <br>
+        <label for="thickness">Thickness</label>
+        <input type="range" min=1 max=5 value=1 id="thickness" name="thickness"><br>
+        <br>
+        <br>
+
+        <canvas id="canvas" width="400" height="400"></canvas>
+        <script src='main.js'></script>
+    </div>
+</body>
+</html>
