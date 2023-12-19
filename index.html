@@ -21,7 +21,6 @@
 
         #canvas {
             border: 2px solid black;
-
         }
     </style>
 </head>
@@ -30,20 +29,38 @@
     <div class="container">
         <h1>Assignment 4: Line Drawing</h1>
         <fieldset id="line-method">
-            <input class="radio-input" type="radio" id="solid" name="line-method" checked>
+            <input class="radio-input" type="radio" id="solid" name="line-method" onchange="clearAndDraw()" checked>
             <label class="radio-label" for="solid"> Solid</label><br>
-            <input class="radio-input" type="radio" id="dashed" name="line-method">
+            <input class="radio-input" type="radio" id="dashed" name="line-method" onchange="clearAndDraw()">
             <label class="radio-label" for="dashed"> Dashed</label><br>
         </fieldset>
 
         <br>
         <label for="thickness">Thickness</label>
-        <input type="range" min=1 max=5 value=1 id="thickness" name="thickness"><br>
+        <input type="range" min=1 max=5 value=1 id="thickness" name="thickness" onchange="clearAndDraw()"><br>
         <br>
         <br>
 
         <canvas id="canvas" width="400" height="400"></canvas>
         <script src='main.js'></script>
     </div>
+    <button id="download" class="center">Download Image</button>
+        <script>
+        ctx.fillStyle = 'black';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        document.getElementById('download').addEventListener('click', () => {
+          const dataURL = canvas.toDataURL('image/png');
+
+          const downloadLink = document.createElement('a');
+          downloadLink.href = dataURL;
+
+          let filename = "filename.png"
+
+          downloadLink.download = filename.slice(0,-3) + '.png';
+
+          downloadLink.click();
+        });
+        </script>
 </body>
 </html>

@@ -1,4 +1,5 @@
 let DRAWPOINTS = true; // change to false if you don't want pointA and pointB to be drawn
+// --------------------- DO NOT EDIT BELOW ---------------------
 var pointA = null;
 var pointB = null;
 var updatePointA = true;
@@ -6,7 +7,7 @@ var ctx = canvas.getContext("2d", {willReadFrequently: true});
 canvas = document.getElementById('canvas');
 
 canvas.addEventListener("click", function(event) {
-    // update points
+    // update point positions
     let x = event.offsetX;
     let y = event.offsetY;
     if (updatePointA) {
@@ -16,43 +17,68 @@ canvas.addEventListener("click", function(event) {
         pointB = [x, y]
     }
     updatePointA = !updatePointA;
-    
     // clear canvas and draw points
+    clearAndDraw()
+})
+
+function clearAndDraw()
+{
+    ctx.clearRect(0,0,canvas.width, canvas.height);
+    let thickness = Number(document.getElementById('thickness').value)
+    let dashed = document.getElementById('dashed').checked
+// --------------------- DO NOT EDIT ABOVE ---------------------
+
+// Your code goes here!
+    let isTwoPoints = pointA != null && pointB != null
+    if (isTwoPoints) {
+        var pixels = bresenham(pointA, pointB)
+    }
+    console.log(pixels)
+
+    if (dashed) {
+        let removeIndices = []
+        for (let i = 0; i < pixels.length; i++) {
+            let gapLength = (thickness+3)
+            if (i % gapLength == 0)
+            {
+                for (let j=0; j<gapLength;j++)
+                {
+                    removeIndices.push(i+j);
+                }
+                i += gapLength+1;
+            }
+        }
+
+        let counter = 0
+        removeIndices.forEach((index) => {
+            pixels.splice(index-counter, 1)
+            counter++
+        })
+    }
+
+    // draw pixels
+    if (isTwoPoints) {
+        ctx.fillStyle = "black";
+        pixels.forEach(([x, y]) => {
+            ctx.fillRect(x-Math.floor((thickness-1)/2),
+                         y-Math.floor((thickness-1)/2), thickness, thickness);
+        })
+    }
+
+// --------------------- DO NOT EDIT BELOW ---------------------
     if (DRAWPOINTS) {
-        ctx.clearRect(0,0,canvas.width, canvas.height);
         ctx.fillStyle = "red";
         if (pointA != null){ ctx.fillRect(pointA[0]-2,pointA[1]-2, 5, 5); }
         ctx.fillStyle = "green";
         if (pointB != null){ ctx.fillRect(pointB[0]-2,pointB[1]-2, 5, 5); }
         console.log(pointA, pointB);
     }
-
-    // draw lines
-    if (pointA != null && pointB != null) {
-        if (document.getElementById('solid').checked) {
-            var pixels = bresenham(pointA, pointB)
-        }
-        else {
-            var pixels = bresenham(pointA, pointB);
-        }
-    }
-
-    ctx.fillStyle = "black";
-    pixels.forEach(([x, y]) => {
-        ctx.fillRect(x, y, 1, 1);
-    })
-    
-})
-
-function convertPixel(i)
-{
-    let x = (i/4)%canvas.width
-    let y = Math.floor((i/4)/canvas.width)
-    return [x,y]
+// --------------------- DO NOT EDIT ABOVE ---------------------
 }
 
 function bresenham(pointA, pointB)
 {
+    // Your code goes here!
     let [x0, y0] = pointA;
     let [x1, y1] = pointB;
     const pixels = [];
