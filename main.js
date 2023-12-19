@@ -29,41 +29,8 @@ function clearAndDraw()
 // --------------------- DO NOT EDIT ABOVE ---------------------
 
 // Your code goes here!
-    let isTwoPoints = pointA != null && pointB != null
-    if (isTwoPoints) {
-        var pixels = bresenham(pointA, pointB)
-    }
-    console.log(pixels)
 
-    if (dashed) {
-        let removeIndices = []
-        for (let i = 0; i < pixels.length; i++) {
-            let gapLength = (thickness+3)
-            if (i % gapLength == 0)
-            {
-                for (let j=0; j<gapLength;j++)
-                {
-                    removeIndices.push(i+j);
-                }
-                i += gapLength+1;
-            }
-        }
 
-        let counter = 0
-        removeIndices.forEach((index) => {
-            pixels.splice(index-counter, 1)
-            counter++
-        })
-    }
-
-    // draw pixels
-    if (isTwoPoints) {
-        ctx.fillStyle = "black";
-        pixels.forEach(([x, y]) => {
-            ctx.fillRect(x-Math.floor((thickness-1)/2),
-                         y-Math.floor((thickness-1)/2), thickness, thickness);
-        })
-    }
 
 // --------------------- DO NOT EDIT BELOW ---------------------
     if (DRAWPOINTS) {
@@ -79,33 +46,7 @@ function clearAndDraw()
 function bresenham(pointA, pointB)
 {
     // Your code goes here!
-    let [x0, y0] = pointA;
-    let [x1, y1] = pointB;
-    const pixels = [];
-    let dx = Math.abs(x1 - x0);
-    let dy = Math.abs(y1 - y0);
-    let sx = (x0 < x1) ? 1 : -1;
-    let sy = (y0 < y1) ? 1 : -1;
-    let err = dx - dy;
-
-    while (true) {
-        pixels.push([ x0, y0]);
-
-        if (x0 === x1 && y0 === y1) {
-            break;
-        }
-
-        const e2 = 2 * err;
-        if (e2 > -dy) {
-            err -= dy;
-            x0 += sx;
-        }
-
-        if (e2 < dx) {
-            err += dx;
-            y0 += sy;
-        }
-    }
-
+    let pixels = []
+    
     return pixels;
 }
