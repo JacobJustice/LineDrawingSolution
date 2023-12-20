@@ -44,23 +44,4 @@
         <canvas id="canvas" width="400" height="400"></canvas>
         <script src='main.js'></script>
     </div>
-    <button id="download" class="center">Download Image</button>
-        <script>
-        ctx.fillStyle = 'black';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        document.getElementById('download').addEventListener('click', () => {
-          const dataURL = canvas.toDataURL('image/png');
-
-          const downloadLink = document.createElement('a');
-          downloadLink.href = dataURL;
-
-          let filename = "filename.png"
-
-          downloadLink.download = filename.slice(0,-3) + '.png';
-
-          downloadLink.click();
-        });
-        </script>
-</body>
 </html>
