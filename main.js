@@ -33,7 +33,6 @@ function clearAndDraw()
     if (isTwoPoints) {
         var pixels = bresenham(pointA, pointB)
     }
-    console.log(pixels)
 
     if (dashed) {
         let removeIndices = []
